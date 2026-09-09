@@ -3,6 +3,7 @@ from scipy.optimize import minimize, root_scalar, Bounds
 from numpy.polynomial.hermite import hermfit, hermval, hermder
 import copy
 
+
 # Conversions between ZCB prices, spot rates forward rates and libor rates
 def zcb_prices_from_spot_rates(T,R,method = "continuous"):
     M = len(T)
