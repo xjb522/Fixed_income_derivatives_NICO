@@ -48,13 +48,38 @@ result_powell = sp.minimize(
 print(result_nm.x)
 print(result_powell.x)
 
-test_data = np.array([result_nm.x, result_powell.x])
 
-print(np.abs((result_nm.x-result_powell.x)/(test_data.std())))
 
-if np.abs((result_nm.x-result_powell.x)/(test_data.std())) < 1.96:
-    print("same")
-elif np.abs((result_nm.x-result_powell.x)/(test_data.std())) > 1.96:
-    print("not the same")
-else:
-    print("What the hell")
+def FFF(x):
+    y = x**2 + 2*x - 5
+    return y
+
+maxXx = sp.minimize(
+    FFF,
+    x0=12,
+    method='Nelder-Mead'
+)
+
+print(maxXx.x)
+
+
+YYY = np.random.normal(10,100,100)
+XXX = np.random.uniform(0.20,100,100)
+
+X = np.column_stack([
+    np.ones(100),
+    XXX
+])
+
+Y = YYY
+
+print(X.shape)
+print(Y.shape)
+
+# OLS: beta_hat = (X'X)^(-1) X'Y
+XTX = X.T @ X
+XTY = X.T @ Y
+
+beta_hat = np.linalg.inv(XTX) @ XTY
+
+print(beta_hat)
