@@ -1,7 +1,9 @@
+from os import rename
 import numpy as np
 import matplotlib.pyplot as plt 
 import pandas as pd
 import scipy.optimize                     as sp
+import sympy as sb
 
 print("import succ")
 
@@ -76,10 +78,44 @@ Y = YYY
 print(X.shape)
 print(Y.shape)
 
-# OLS: beta_hat = (X'X)^(-1) X'Y
+# OLS
 XTX = X.T @ X
 XTY = X.T @ Y
 
 beta_hat = np.linalg.inv(XTX) @ XTY
 
+# Fitted values
+Y_hat = X @ beta_hat
+
+# Residualer
+epsilon_hat = Y - Y_hat
+
 print(beta_hat)
+print(epsilon_hat.size)
+print(np.sum(epsilon_hat)**2)
+
+
+
+bb = range(0,100)
+
+koordinat = []
+
+
+for i in np.linspace(0,100,100):
+    koordinat.append(beta_hat[0] + i * beta_hat[1] )
+
+plt.close()
+plt.clf()
+
+plt.figure(figsize=(12,8))
+
+plt.scatter(range(0,100),epsilon_hat, label="Residuals")
+plt.plot(koordinat, label="Regression")
+plt.legend("upper left")
+plt.show()
+
+koordinat = pd.DataFrame(koordinat)
+
+koordinat = koordinat.rename(columns={0 :"udvikling"})
+
+print(koordinat.head)
