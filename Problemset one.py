@@ -119,3 +119,16 @@ koordinat = pd.DataFrame(koordinat)
 koordinat = koordinat.rename(columns={0 :"udvikling"})
 
 print(koordinat.head)
+
+
+def DD(d):
+    dd = d**22 + d*10 + 10
+    return dd
+
+hej = sp.minimize(
+    DD,
+    x0=5,
+    method="Nelder-Mead"
+)
+
+print(hej.x)
